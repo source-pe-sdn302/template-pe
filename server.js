@@ -4,8 +4,9 @@ const morgan = require("morgan");
 const httpErrors = require("http-errors");
 require("dotenv").config();
 
+const connectDB = require ("./dbConnect/db");
 const db = require("./models");
-const UserRouter = require("./routes/user.route");
+const ApiRouter = require("./routes/api.route");
 
 const app = express();
 app.use(bodyParser.json());
@@ -16,7 +17,9 @@ app.get("/", async (req, res, next) => {
 });
 
 //Recieve request 
-app.use("/user", UserRouter);
+app.use("/user", ApiRouter);
+
+
 
 app.use(async (req, res, next) => {
     next(httpErrors.BadRequest("Bad request"));
@@ -37,6 +40,6 @@ const PORT = process.env.PORT;
 
 app.listen(PORT, HOST_NAME, () => {
     console.log(`Server running at: http://${HOST_NAME}:${PORT}`);
-    //Connect db
-    db.connectDb();
+    //Connect database 
+    connectDB();
 });

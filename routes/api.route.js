@@ -1,13 +1,11 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const db = require("../models");
 
-const UserRouter = express.Router();
 
-UserRouter.use(bodyParser.json());
+const ApiRouter = express.Router();
 
 // Create user
-UserRouter.post("/create", async (req, res, next) => {
+ApiRouter.post("/create", async (req, res, next) => {
     try {
         const { gmail, password, name, phone, address, role } = req.body;
         const newUser = await db.User.create({ gmail, password, name, phone, address, role });
@@ -32,4 +30,4 @@ UserRouter.post("/create", async (req, res, next) => {
     }
 });
 
-module.exports = UserRouter;
+module.exports = ApiRouter;
