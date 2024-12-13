@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const httpErrors = require("http-errors");
+const cors = require("cors");
 require("dotenv").config();
 
 const connectDB = require ("./dbConnect/db");
@@ -11,7 +12,7 @@ const ApiRouter = require("./routes/api.route");
 const app = express();
 app.use(bodyParser.json());
 app.use(morgan("dev"));
-
+app.use(cors());
 app.get("/", async (req, res, next) => {
     res.status(200).send({ message: "Welcome to Restful API server" });
 });
